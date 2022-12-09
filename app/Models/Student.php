@@ -39,6 +39,13 @@ class Student extends Model
         return $this->belongsTo(Teacher::class,'teacher_id','teacher_id');
     }
 
+    /**
+     * Get related student marks
+     */
+    public function mark(){
+        return $this->hasMany(StudentMark::class,'student_id','student_id');
+    }
+
     public function getGenderTextAttribute(){ //create new column as gender_formatted
         if($this->gender == 1) {  return "M"; }
         else { return "F"; }

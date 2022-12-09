@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentMarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use App\Http\Controllers\StudentController;
 
 Route::get('/', 'StudentController@index');
 Route::resource('students', StudentController::class);
+Route::resource('student-marks',StudentMarkController::class);
