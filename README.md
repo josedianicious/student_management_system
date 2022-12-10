@@ -3,7 +3,7 @@ student management system
 
 For running this project in your machine
 
-*clone this url depo using the "git clone https://github.com/josedianicious/student_management_system"
+*clone this url repo using the "git clone https://github.com/josedianicious/student_management_system"
 
 *create a database 
 
