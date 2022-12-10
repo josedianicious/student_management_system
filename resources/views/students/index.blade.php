@@ -6,9 +6,15 @@
             <div class="pull-left">
                 <h2>Student Management System</h2>
             </div>
-            <div class="pull-right mb-2">
+            <div class="col-md-6 pull-right mb-2">
                <a class="btn btn-success" href="{{ route('students.create') }}"> Create Student</a>
             </div>
+            @if ($students->count() > 0)
+                <div class="col-md-6 pull-right mb-2">
+                    <a class="btn btn-primary" href="{{ route('student-marks.index') }}">Student's Mark</a>
+                </div>
+            @endif
+
         </div>
     </div>
     @if ($message = Session::get('success'))
@@ -46,8 +52,8 @@
           </tr>
         @endforeach
         </tbody>
-        {!! $students->links() !!}
+
       </table>
 
-
+{!! $students->links() !!}
 @endsection

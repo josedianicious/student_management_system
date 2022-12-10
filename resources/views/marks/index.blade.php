@@ -9,6 +9,9 @@
             <div class="pull-right mb-2">
                <a class="btn btn-success" href="{{ route('student-marks.create') }}"> Add Student's Term Mark</a>
             </div>
+            <div class="pull-right">
+                <a class="btn btn-secondary" href="{{ route('students.index') }}"> Student List</a>
+            </div>
         </div>
     </div>
     @if ($message = Session::get('success'))
@@ -54,7 +57,7 @@
           </tr>
         @endforeach
         </tbody>
-        {!! $student_marks->links() !!}
-      </table>
 
+      </table>
+      {!! $student_marks->links() !!}
 @endsection

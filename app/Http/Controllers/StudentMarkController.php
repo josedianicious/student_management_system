@@ -51,10 +51,12 @@ class StudentMarkController extends Controller
             ]
             );
         $total_mark = $request->maths_mark + $request->science_mark + $request->history_mark;
-        $student_marks = StudentMark::create(
+        $student_marks = StudentMark::updateOrCreate(
             [
                 'student_id'=>$request->student_name,
-                'term_id'=>$request->term_id,
+                'term_id'=>$request->term_id
+            ],
+            [
                 'maths_mark'=>$request->maths_mark,
                 'science_mark'=>$request->science_mark,
                 'history_mark'=>$request->history_mark,
