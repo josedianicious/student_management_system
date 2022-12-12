@@ -54,6 +54,16 @@
         </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
+        <img src="{{asset('storage/images/'.$student->image)}}" alt="{{$student->student_name}}" class="img-thumbnail w-25">
+        <div class="form-group">
+        <strong>Studnet Photo:</strong>
+        <input type="file" name="student_photo" class="form-control">
+        @error('student_photo')
+        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
     <div class="form-group">
     <strong>Reporting Teacher:</strong>
     <select class="form-control" name="teachers_id">

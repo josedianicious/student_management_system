@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::oldest()->paginate(1);
+        $students = Student::latest()->paginate(10);
         return view('students.index',compact('students'));
     }
 
@@ -44,12 +44,22 @@ class StudentController extends Controller
             'gender' => 'required',
             'teachers_id' => 'required'
             ]);
-        $student = new Student;
-        $student->student_name = $request->student_name;
-        $student->age = $request->age;
-        $student->gender = $request->gender;
-        $student->teacher_id = $request->teachers_id;
-        $student->save();
+        $input = [
+            'student_name' => $request->student_name,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'teacher_id' => $request->teachers_id,
+        ];
+        if (request()->hasFile('student_photo')) {
+            $request->validate([
+                'student_photo'=> 'mimes:jpeg,jpg,png,gif|max:1000',
+            ]);
+            $extension = request('student_photo')->extension();;
+            $fileName = 'user_pic'.time().rand(3,3).'.'.$extension;
+            request('student_photo')->storeAs('images',$fileName);
+            $input['image'] = $fileName;
+        }
+        $student = Student::create($input);
         return redirect()->route('students.index')
             ->with('success','Student details has been sucessfully created.');
     }
@@ -96,16 +106,23 @@ class StudentController extends Controller
             'gender' => 'required',
             'teachers_id' => 'required'
             ]);
-        //return $request;
+        $input = [
+            'student_name' =>$request->student_name,
+            'age' =>$request->age,
+            'gender' =>$request->gender,
+            'teacher_id' =>$request->teachers_id,
+        ];
+        if (request()->hasFile('student_photo')) {
+            $request->validate([
+                'student_photo'=> 'mimes:jpeg,jpg,png,gif|max:1000',
+            ]);
+            $extension = request('student_photo')->extension();
+            $fileName = 'user_pic'.time().rand(3,3).'.'.$extension;
+            request('student_photo')->storeAs('images',$fileName);
+            $input['image']= $fileName;
+        }
         $update_student = Student::find(decrypt($id));
-        $update_student->update(
-            [
-                'student_name' =>$request->student_name,
-                'age' =>$request->age,
-                'gender' =>$request->gender,
-                'teacher_id' =>$request->teachers_id,
-            ]
-            );
+        $update_student->update($input);
         return redirect()->route('students.index')
             ->with('success','Student details has been sucessfully updated.');
     }
